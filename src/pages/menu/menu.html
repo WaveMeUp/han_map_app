@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Главная</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-right color="royal" (click)="exit()">
+        Выйти
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="card-background-page">
+    <ion-card>
+      <img src="http://admhmansy.ru.opt-images.1c-bitrix-cdn.ru/upload/iblock/d21/img_3015.jpg?148189237869777"/>
+      <div class="card-title">Новости</div>
+      <div class="card-subtitle">Все службы Ханты-Мансийска готовы к новогодним праздникам</div>
+    </ion-card>
+  </div>
+  <ion-list>
+    <button ion-item (click)=openPage(DashboardPage)>
+      <ion-icon name="map" color="pinky" item-left></ion-icon>
+      Улучшим наш город
+    </button>
+    <button ion-item (click)=openPage(PoolsPage)>
+      <ion-icon name="help" color="pinky" item-left></ion-icon>
+      Опросы
+    </button>
+    <button ion-item (click)=navCtrl.push(OmsPage)>
+      <ion-icon name="clock" color="pinky" item-left></ion-icon>
+      Запись на приём в ОМС
+    </button>
+    <button ion-item (click)=navCtrl.push(ServicesPage)>
+      <ion-icon name="bookmarks" color="pinky" item-left></ion-icon>
+      Услуги МФЦ
+    </button>
+  </ion-list>
+
+</ion-content>

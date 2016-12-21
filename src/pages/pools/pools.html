@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Опросы</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let item of pools" (click)=openPool(item)>
+      <!-- <ion-icon name="menu" color="pinky" item-left></ion-icon> -->
+      {{item.title}}
+    </button>
+  </ion-list>
+
+</ion-content>
