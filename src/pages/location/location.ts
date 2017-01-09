@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Geolocation, Dialogs, Toast } from 'ionic-native';
 import { MenuPage } from '../menu/menu'
+import { AuthProvider } from '../../providers/auth-provider'
 declare var ymaps: any;
 
 /*
@@ -17,12 +18,15 @@ declare var ymaps: any;
 export class LocationPage {
   items: any
   searchQuery: string = ''
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public auth: AuthProvider) {
     this.initializeItems()
   }
 
 
   ionViewDidLoad() {
+    // Geolocation.getCurrentPosition().then((res) => {
+    //   console.log(res)
+    // })
     console.log('Hello LocationPage Page');
   }
 
@@ -40,9 +44,10 @@ export class LocationPage {
 
   test = 1
 
-  goToMenu() {
+  goToMenu(city: string) {
+    this.auth.set('city', city)
+    this.auth.updateStorage()
     this.navCtrl.setRoot(MenuPage, {}, {animate: true, direction: 'forward'})
-    // this.navCtrl.push(MenuPage) // TODO go to menu page
   }
 
   private findCity(city: String) {
@@ -54,6 +59,9 @@ export class LocationPage {
         message: 'Не удалось определить город. Пожалуйста, выберете вручную',
         duration: 3000
       }).present()
+    else {
+      this.goToMenu(res.name)
+    }
     console.log(res)
     return res
   }
@@ -148,6 +156,10 @@ export class LocationPage {
       {
         name: 'Югорск',
         state: 'МО город Югорск'
+      },
+      {
+        name: 'Кронштадт',
+        state: 'Ленинградская Область'
       }]
   }
 

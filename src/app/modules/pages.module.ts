@@ -9,7 +9,9 @@ import { PoolsPage } from '../../pages/pools/pools'
   imports: [
     IonicModule.forRoot(LocationPage),
     IonicModule.forRoot(MenuPage),
-    IonicModule.forRoot(HomePage),
+    IonicModule.forRoot(HomePage, {
+      mode: 'ios'
+    }),
     IonicModule.forRoot(PoolsPage)
   ],
   declarations: [

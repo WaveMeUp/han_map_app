@@ -1,16 +1,19 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Опросы</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of pools" (click)=openPool(item)>
+    <button ion-item *ngFor="let item of data; let i = index" (click)=openItem(item)>
       <!-- <ion-icon name="menu" color="pinky" item-left></ion-icon> -->
-      {{item.title}}
+      {{item.label}}
+      <ion-note item-right [hidden]="!stats">
+        {{stats[i]?.quantity}}
+      </ion-note>
     </button>
   </ion-list>
 

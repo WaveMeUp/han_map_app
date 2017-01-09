@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{ title }}</ion-title>
   </ion-navbar>
 
@@ -9,11 +9,11 @@
 <ion-content>
   <ion-item-group *ngFor="let obj of data">
     <div *ngFor="let month of obj.Months">
-      <ion-item-divider color="light">{{ getMonthName(obj.Year, month.Month) }} {{ obj.Year }}</ion-item-divider>
-      <button ion-item *ngFor="let day of month.Days" (click)="day.Free && selectHours(day.Day, month.Month, obj.Year)">
-        <ion-icon *ngIf="day.Free" name="ios-checkmark-circle" item-left></ion-icon>
-        <ion-icon *ngIf="!day.Free" name="ios-close-circle-outline" item-left></ion-icon>
-        {{ getDate(day.Day, month.Month, obj.Year) }}
+      <ion-item-divider color="light">{{ obj.Year | getMonthName:month.Month }} {{ obj.Year }}</ion-item-divider>
+      <button ion-item *ngFor="let day of month.Days" (click)="day.Free && selectHours(day.Day, month.Month, obj.Year)" [disabled]="!day.Free">
+        <ion-icon *ngIf="day.Free" color="primary" name="ios-checkmark-circle" item-left></ion-icon>
+        <ion-icon *ngIf="!day.Free" color="danger" name="ios-close-circle-outline" item-left></ion-icon>
+        {{ day.Day | getDateTime: month.Month: obj.Year }}
       </button>
     </div>
   </ion-item-group>

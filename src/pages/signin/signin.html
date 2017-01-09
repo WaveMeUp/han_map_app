@@ -12,15 +12,20 @@
 
 </ion-header>
 
-
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-input type="text" placeholder="Мобильный телефон или почта"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="Пароль"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button block (click)=signIn()>Войти</button>
+<ion-content>
+  <form [formGroup]="login_form" (ngSubmit)="signIn()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Мобильный телефон или почта</ion-label>
+        <ion-input type="text" formControlName="login"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Пароль</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!login_form.valid">Войти</button>
+    </div>
+  </form>
 </ion-content>

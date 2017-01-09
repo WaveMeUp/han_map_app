@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{ title }}</ion-title>
   </ion-navbar>
 
@@ -9,9 +9,9 @@
 <ion-content>
   <ion-item-group>
       <ion-item-divider color="light">{{ date }}</ion-item-divider>
-      <button ion-item *ngFor="let item of hours">
-        <ion-icon *ngIf="item.Free" name="ios-checkmark-circle" item-left></ion-icon>
-        <ion-icon *ngIf="!item.Free" name="ios-close-circle-outline" item-left></ion-icon>
+      <button ion-item *ngFor="let item of hours" [disabled]="!item.Free" (click)="showPrompt(item)">
+        <ion-icon *ngIf="item.Free" color="primary" name="ios-checkmark-circle" item-left></ion-icon>
+        <ion-icon *ngIf="!item.Free" color="danger" name="ios-close-circle-outline" item-left></ion-icon>
         {{item.Hour}}:{{(item.Minutes === 0) ? '00' : (item.Minutes)}}
       </button>
   </ion-item-group>

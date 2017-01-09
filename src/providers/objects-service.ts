@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
+import { Http, URLSearchParams, Headers } from '@angular/http';
+import { AuthProvider } from './auth-provider'
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the ObjectsService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class ObjectsService {
 
   data: any
-  constructor(public http: Http) {
+  selected_location: Array<number>
+
+  constructor(public http: Http, private auth: AuthProvider) {
     console.log('Hello ObjectsService Provider');
   }
 
@@ -56,5 +53,28 @@ export class ObjectsService {
       arr.push(obj)
     }
     return arr
+  }
+
+  add(form: any, coords: Array<number> ) {
+    console.log(coords)
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let params = new URLSearchParams()
+    params.set('access_token', this.auth.user.access_token)
+    params.set('category', form.category)
+    params.set('description', form.description)
+    params.set('coordinates', JSON.stringify(coords))
+    console.log(form.picture.toString())
+    if (form.picture) params.set('picture', form.picture)
+    let body = params.toString()
+    return new Promise((resolve, reject) => {
+      this.http.post('http://api.flower-almaty.kz' + '/place/add', body, {headers: headers}).subscribe(res => {
+        resolve(res.json())
+      }, err => {
+        reject(err.json())
+      })
+    })
+
+
   }
 }

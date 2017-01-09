@@ -6,8 +6,10 @@
   </ion-navbar>
 </ion-header> -->
 
-<ion-content padding>
-  <img src="assets/img/city_logo.png" style="display: block; margin-top: 50px; margin-bottom: 100px; margin-left: auto; margin-right: auto; max-height: 50vh">
+<ion-content padding class="no-scroll content-image">
+  <div id="city_logo">
+    <img src="assets/img/city_logo_round.png">
+  </div>
   <!-- <button ion-button block outline (click)=changePage()>Улучшим наш город</button>
   <button ion-button block outline>Запись в МФЦ</button> -->
   <!-- <ion-list>
@@ -20,10 +22,17 @@
       <ion-input type="password"></ion-input>
     </ion-item>
   </ion-list> -->
-  <p>
-    <button ion-button block (click)=goToSignIn()>Войти</button>
-  </p>
-  <p>
-    <button ion-button block color="light" (click)=goToSignUp()>Зарегистрироваться</button>
-  </p>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <p>
+      <button ion-button round block color="signin_button" (click)=goToSignIn()>Войти</button>
+    </p>
+    <p>
+      <button ion-button round block color="signup_button" (click)=goToSignUp()>Зарегистрироваться</button>
+    </p>
+    <p>
+      <button ion-button round block color="skip_button" (click)=skip()>Пропустить</button>
+    </p>
+  </ion-toolbar>
+</ion-footer>

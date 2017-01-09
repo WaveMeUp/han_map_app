@@ -1,48 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { AuthProvider } from './auth-provider'
 
 @Injectable()
 export class PoolsProvider {
+  server: string = 'http://api.flower-almaty.kz'
+  access_token: string = this.auth.user.access_token || null
 
-  constructor(public http: Http) {
+  constructor(public http: Http, private auth: AuthProvider) {
     console.log('Hello Pools Provider');
   }
 
-  load() {
-    let pools =
-    [{
-      title: 'Вам нравится наше приложение?',
-      answers: [{
-        title: 'Да',
-        result: 500
-      },
-      {
-        title: 'Нет',
-        result: 30
-      }]
-    },
-    {
-      title: 'Сколько вы получаете?',
-      answers: [{
-        title: '<15000',
-        result: 100
-      },
-      {
-        title: '15 000 - 30 000',
-        result: 300
-      },
-      {
-        title: '30 000 - 50 000',
-        result: 400
-      },
-      {
-        title: '>50000',
-        result: 250
-      }]
-    }]
+  get() {
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let params = new URLSearchParams()
+    params.set('access_token', this.access_token)
+    let body = params.toString()
+    return this.http.post(this.server + '/polls/activepolls', body, {headers: headers})
+  }
 
-    return pools
+  getQuestions(item: any) {
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let params = new URLSearchParams()
+    params.set('access_token', this.access_token)
+    params.set('test_id', item.test_id)
+    let body = params.toString()
+    return this.http.post(this.server + '/polls/questions', body, {headers: headers})
+  }
+
+  getAnswers(item: any) {
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let params = new URLSearchParams()
+    params.set('access_token', this.access_token)
+    params.set('question_id', item.question_id)
+    let body = params.toString()
+    return this.http.post(this.server + '/polls/answers', body, {headers: headers})
+  }
+
+  sendAnswer(item: any) {
+    let headers = new Headers();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let params = new URLSearchParams()
+    params.set('access_token', this.access_token)
+    params.set('answer_id', item.answer_id)
+    let body = params.toString()
+    return this.http.post(this.server + '/polls/answer', body, {headers: headers})
   }
 
 }

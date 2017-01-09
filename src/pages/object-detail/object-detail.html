@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{data.Type_Name}}</ion-title>
   </ion-navbar>
 
@@ -14,17 +14,24 @@
 
 <ion-content>
   <ion-card>
-    <img src="http://admhmansy.ru/map/serviceimage/{{data.User_Image}}"/>
+    <div class="card-img">
+      <img src="http://admhmansy.ru/map/serviceimage/{{data.User_Image}}"/>
+      <div class="card-status">
+        {{data.Status_Name}}
+      </div>
+    </div>
+    <div class="card-date">
+      <ion-icon color="primary" name="ios-calendar-outline"></ion-icon>
+      {{data.Date_Change | convertDate}}
+    </div>
+    <div class="card-location" (click)="openMap()">
+      <ion-icon name="pin" color="pinky"></ion-icon>
+      {{data.street || 'Загрузка...'}}
+    </div>
     <ion-card-content>
-      <ion-card-title>
-        {{data.Type_Name}}
-      </ion-card-title>
       <p>
-        {{data.UserName}}<br>
-        {{data.Date_Change}}<br><br>
         {{data.User_Message}}
       </p>
-      Статус: {{data.Status_Name}}
     </ion-card-content>
   </ion-card>
 

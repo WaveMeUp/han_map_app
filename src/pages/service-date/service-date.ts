@@ -23,7 +23,7 @@ export class ServiceDatePage {
 
   ionViewDidLoad() {
     console.log('Hello ServiceDatePage Page');
-    console.log(this.data)
+    console.log('Fields: ', this.navParams.data.item.Product.RequiredFields)
   }
 
   getMonthName(year: number, month: number) {
@@ -58,12 +58,7 @@ export class ServiceDatePage {
     this.service.getHours(this.id, date).subscribe(res => {
       loader.dismiss()
       date = new Date([year,month,day].join('-'))
-      let options = {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
-      }
-      this.navCtrl.push(ServiceHoursPage, {hours: res.json(), title: this.title, date: date.toLocaleString('ru', options)})
+      this.navCtrl.push(ServiceHoursPage, {hours: res.json(), title: this.title, date, item: this.navParams.data.item})
       console.log(res.json())
     }, err => {
       loader.dismiss()

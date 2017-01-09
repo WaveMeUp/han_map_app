@@ -17,6 +17,7 @@ import { ServiceDatePage } from '../service-date/service-date'
 export class ServicesPage {
   data: any
   title: any = this.navParams.data.object ? this.navParams.data.object.Name : 'Услуги МФЦ'
+  count: number = 0
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private service: ServiceProvider, public navParams: NavParams) {}
 
@@ -29,6 +30,10 @@ export class ServicesPage {
       else
         this.loadServices()
     console.log('Hello ServicesPage Page');
+  }
+
+  ionViewWillEnter() {
+    console.log("this function will be called every time you enter the view");
   }
 
   loadServices() {
@@ -48,13 +53,19 @@ export class ServicesPage {
   }
 
   openItem(item: any) {
-    if (item.SubItems) {
+    if (this.count == 1) return false
+    console.log(item.hasOwnProperty('SubItems'))
+    if (item.hasOwnProperty('SubItems')) {
       this.navCtrl.push(ServicesPage, {object: item})
+      console.log('not doing shit')
     } else {
+      this.count++
+      console.log('do shit')
       this.service.check(item.Id).subscribe(res => {
         let dates = res.json()
         console.log(dates)
         this.navCtrl.push(ServiceDatePage, {item, dates})
+        this.count = 0
       }, err => {
         console.log(err)
       })

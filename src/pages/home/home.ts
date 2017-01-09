@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { DashboardPage } from '../dashboard/dashboard'
 import { SigninPage } from '../signin/signin'
 import { SignupPage } from '../signup/signup'
+import { MenuPage } from '../menu/menu'
 
 @Component({
   selector: 'page-home',
@@ -21,5 +22,9 @@ export class HomePage {
 
   goToSignUp() {
     this.navCtrl.push(SignupPage)
+  }
+
+  skip() {
+    this.navCtrl.setRoot(MenuPage, {}, {animate: true, direction: 'forward'})
   }
 }

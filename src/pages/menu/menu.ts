@@ -5,14 +5,9 @@ import { HomePage } from '../home/home'
 import { DashboardPage } from '../dashboard/dashboard'
 import { ServicesPage } from '../services/services'
 import { PoolsPage } from '../pools/pools'
+import { OmsPage } from '../oms-page/oms-page'
+import { AuthProvider } from '../../providers/auth-provider'
 
-
-/*
-  Generated class for the Menu page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html'
@@ -21,8 +16,9 @@ export class MenuPage {
   DashboardPage: any = DashboardPage
   ServicesPage: any = ServicesPage
   PoolsPage: any = PoolsPage
+  OmsPage: any = OmsPage
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public auth: AuthProvider) {
     this.navCtrl = navCtrl
   }
 
@@ -31,10 +27,12 @@ export class MenuPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.auth.user)
     console.log('Hello MenuPage Page');
   }
 
   exit() {
+    this.auth.clearStorage()
     this.navCtrl.setRoot(HomePage, {}, {animate: true, direction: 'backwards'})
   }
 
